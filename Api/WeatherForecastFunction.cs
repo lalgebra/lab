@@ -34,20 +34,13 @@ namespace BlazorApp.Api
 
         [FunctionName("WeatherForecast")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            var randomNumber = new Random();
-            var temp = 0;
+           var data = await req.Content.ReadAsAsync<WeatherForecast>();
+           log.Info(data);
 
-            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = temp = randomNumber.Next(-20, 55),
-                Summary = GetSummary(temp)
-            }).ToArray();
-
-            return new OkObjectResult(result);
+            return new OkObjectResult(data);
         }
     }
 }

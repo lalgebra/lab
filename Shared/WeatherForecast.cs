@@ -4,9 +4,10 @@ namespace BlazorApp.Shared
 {
     public class WeatherForecast
     {
-        public DateTime Date { get; set; }
+        public DateTime Date => DateTime.Now();
 
-        public int TemperatureC { get; set; }
+        public float Humidity { get; set; }
+        public float TemperatureC { get; set; }
 
         public string Summary { get; set; }
 
