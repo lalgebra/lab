@@ -60,7 +60,7 @@ namespace BlazorApp.Api
     await _linkTable.CreateIfNotExistsAsync();
 
     // Create a new customer entity.
-     var data = await req.Content.ReadAsAsync<WeatherForecast>();
+     var data = await req.Content.ReadAsAsync<WeatherForecastDTO>();
 
     // Create the TableOperation that inserts the customer entity.
     TableOperation insertOperation = TableOperation.InsertOrMerge(data);
