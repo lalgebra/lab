@@ -1,8 +1,9 @@
 ﻿using System;
+using Microsoft.WindowsAzure.Storage.Table;
 
 namespace BlazorApp.Shared
 {
-    public class WeatherForecast
+    public class WeatherForecast : TableEntity
     {
         public DateTime Date { get; set; }
 

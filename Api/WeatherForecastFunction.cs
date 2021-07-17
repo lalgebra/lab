@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using BlazorApp.Shared;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 
 namespace BlazorApp.Api
 {
@@ -34,15 +36,40 @@ namespace BlazorApp.Api
             return summary;
         }
 
+  [FunctionName("WeatherForecastGet")]
+        public static IActionResult Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            var s = new WeatherForecast();
+            return new OkObjectResult(s);
+
+        }
+
         [FunctionName("WeatherForecast")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequestMessage req,
             ILogger log)
         {
-           var data = await req.Content.ReadAsAsync<WeatherForecast>();
-           log.LogInformation(data.TemperatureC.ToString());
+            CloudStorageAccount storageAccount =
+        new CloudStorageAccount(new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials("algebraiot", "6GY4q2/HYcVmpGMrNDpHuKB5c9O3CWyPCv9l/JhDD/N9AmWrq92jOv0eUeYysX34/Gfrj3RQa+VPoOglCFs4gw=="),
+        true);
+    CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
 
-            return new OkObjectResult(data);
+    CloudTable _linkTable = tableClient.GetTableReference("tempHumLog");
+    await _linkTable.CreateIfNotExistsAsync();
+
+    // Create a new customer entity.
+     var data = await req.Content.ReadAsAsync<WeatherForecast>();
+
+    // Create the TableOperation that inserts the customer entity.
+    TableOperation insertOperation = TableOperation.InsertOrMerge(data);
+          
+           
+
+            return new OkResult();
         }
     }
+
+    
 }
