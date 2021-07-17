@@ -36,15 +36,15 @@ namespace BlazorApp.Api
             return summary;
         }
 
-  [FunctionName("WeatherForecastGet")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            var s = new WeatherForecast();
-            return new OkObjectResult(s);
+//   [FunctionName("WeatherForecastGet")]
+//         public static IActionResult Run(
+//             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+//             ILogger log)
+//         {
+//             var s = new WeatherForecast();
+//             return new OkObjectResult(s);
 
-        }
+//         }
 
         [FunctionName("WeatherForecast")]
         public static async Task<IActionResult> Run(
