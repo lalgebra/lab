@@ -7,6 +7,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
 using BlazorApp.Shared;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace BlazorApp.Api
 {
@@ -33,12 +35,12 @@ namespace BlazorApp.Api
         }
 
         [FunctionName("WeatherForecast")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequestMessage req,
             ILogger log)
         {
            var data = await req.Content.ReadAsAsync<WeatherForecast>();
-           log.Info(data);
+           log.LogInformation(data.TemperatureC.ToString());
 
             return new OkObjectResult(data);
         }
