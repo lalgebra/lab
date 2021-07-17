@@ -65,9 +65,20 @@ namespace BlazorApp.Api
     // Create the TableOperation that inserts the customer entity.
     TableOperation insertOperation = TableOperation.InsertOrMerge(data);
           
-           
+    var bSuccess = true;
+           try
+    {
 
-            return new OkObjectResult("ok");
+    await _linkTable.ExecuteAsync(insertOperation);
+
+    }
+    catch (Exception e)
+    {
+        bSuccess = false;
+    }
+     ;
+
+            return new OkObjectResult(bSuccess);
         }
     }
 
