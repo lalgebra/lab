@@ -75,6 +75,7 @@ namespace BlazorApp.Api
     catch (Exception e)
     {
         bSuccess = false;
+        return new OkObjectResult(e.Message);
     }
      ;
 
