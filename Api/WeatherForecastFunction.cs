@@ -67,7 +67,7 @@ namespace BlazorApp.Api
           
            
 
-            return new OkResult();
+            return new OkObjectResult("ok");
         }
     }
 
