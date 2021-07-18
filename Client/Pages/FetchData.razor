@@ -44,7 +44,7 @@ else
     {
       try
       {
-        data = await Http.GetFromJsonAsync<List<WeatherForecast>>("/api/WeatherForecast");
+        data = await Http.GetFromJsonAsync<List<WeatherForecast>>("/api/WeatherForecastGet/getAll");
       }
       catch (Exception ex)
       {
