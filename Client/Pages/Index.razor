@@ -80,8 +80,8 @@ else
         try
         {
             data = await Http.GetFromJsonAsync<List<WeatherForecast>>("/api/record");
-            lastHumidity = data.OrderByDescending(x => x.Date).LastOrDefault().Humidity;
-            lastTemperature = data.OrderByDescending(x => x.Date).LastOrDefault().TemperatureC;
+            lastHumidity = data.OrderByDescending(x => x.Date).FirstOrDefault().Humidity;
+            lastTemperature = data.OrderByDescending(x => x.Date).FirstOrDefault().TemperatureC;
         }
         catch (Exception ex)
         {
