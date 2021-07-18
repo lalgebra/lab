@@ -43,49 +43,49 @@ namespace BlazorApp.Api
             return summary;
         }
 
-        // [FunctionName("GetAllRecords")]
-        // public static async Task<IActionResult> Run(
-        //           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "record")] HttpRequest req,
-        //           ILogger log)
-        // {
+        [FunctionName("GetAllRecords")]
+        public static async Task<IActionResult> GetAllRecords(
+                  [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "record")] HttpRequest req,
+                  ILogger log)
+        {
             
-        //     var _records = new List<WeatherForecast>();
-        //     var storageAccount = new CloudStorageAccount(new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(account, key), true);
-        //     var tableClient = storageAccount.CreateCloudTableClient();
+            var _records = new List<WeatherForecast>();
+            var storageAccount = new CloudStorageAccount(new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(account, key), true);
+            var tableClient = storageAccount.CreateCloudTableClient();
 
-        //     var _linkTable = tableClient.GetTableReference(tableName);
+            var _linkTable = tableClient.GetTableReference(tableName);
 
-        //     await _linkTable.CreateIfNotExistsAsync();
+            await _linkTable.CreateIfNotExistsAsync();
 
-        //     // Construct the query operation for all customer entities where PartitionKey="Smith".
-        //     var query = new TableQuery<WeatherForecast>();
+            // Construct the query operation for all customer entities where PartitionKey="Smith".
+            var query = new TableQuery<WeatherForecast>();
 
-        //     // Print the fields for each customer.
-        //     TableContinuationToken token = null;
-        //     do
-        //     {
-        //         TableQuerySegment<WeatherForecast> resultSegment = await _linkTable.ExecuteQuerySegmentedAsync(query, token);
-        //         token = resultSegment.ContinuationToken;
+            // Print the fields for each customer.
+            TableContinuationToken token = null;
+            do
+            {
+                TableQuerySegment<WeatherForecast> resultSegment = await _linkTable.ExecuteQuerySegmentedAsync(query, token);
+                token = resultSegment.ContinuationToken;
 
-        //         foreach (var entity in resultSegment.Results)
-        //         {
-        //             WeatherForecast _summary = new WeatherForecast
-        //             {
-        //                 PartitionKey = entity.PartitionKey,
-        //                 RowKey = entity.RowKey,
-        //                 Timestamp = entity.Timestamp
-        //             };
+                foreach (var entity in resultSegment.Results)
+                {
+                    WeatherForecast _summary = new WeatherForecast
+                    {
+                        PartitionKey = entity.PartitionKey,
+                        RowKey = entity.RowKey,
+                        Timestamp = entity.Timestamp
+                    };
 
-        //             _records.Add(_summary);
-        //         }
-        //     } while (token != null);
+                    _records.Add(_summary);
+                }
+            } while (token != null);
 
-        //     return new OkObjectResult(_records);
+            return new OkObjectResult(_records);
 
-        // }
+        }
 
         [FunctionName("CreateRecord")]
-        public static async Task<IActionResult> Run(
+        public static async Task<IActionResult> CreateRecord(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "record")] HttpRequestMessage req,
             ILogger log)
         {
