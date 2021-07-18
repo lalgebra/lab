@@ -43,9 +43,9 @@ namespace BlazorApp.Api
             return summary;
         }
 
-        [FunctionName("WeatherForecastGet")]
+        [FunctionName("GetAllRecords")]
         public static async Task<IActionResult> Run(
-                  [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getAll")] HttpRequest req,
+                  [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "record")] HttpRequest req,
                   ILogger log)
         {
             
@@ -84,9 +84,9 @@ namespace BlazorApp.Api
 
         }
 
-        [FunctionName("WeatherForecast")]
+        [FunctionName("CreateRecord")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "record")] HttpRequestMessage req,
             ILogger log)
         {
             CloudStorageAccount storageAccount =
