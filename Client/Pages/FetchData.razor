@@ -12,6 +12,7 @@
 }
 else
 {
+    
     <table class="table">
         <thead>
             <tr>
@@ -22,26 +23,28 @@ else
             </tr>
         </thead>
         <tbody>
-            
+             @foreach (var currentData in data)
+            {
                 <tr>
-                    <td>@data.Date.ToShortDateString()</td>
-                    <td>@data.TemperatureC</td>
-                    <td>@data.TemperatureF</td>
-                    <td>@data.Summary</td>
+                    <td>@currentData.Timestamp.DateTime.Date</td>
+                    <td>@currentData.Timestamp.DateTime.ToShortTimeString()</td>
+                    <td>@currentData.TemperatureC</td>
+                    <td>@currentData.TemperatureF</td>
+                    <td>@currentData.Summary</td>
                 </tr>
-            
+            }
         </tbody>
     </table>
 }
 
 @code {
-    private WeatherForecast data;
+    private List<WeatherForecast> data;
 
     protected override async Task OnInitializedAsync()
     {
       try
       {
-        data = await Http.GetFromJsonAsync<WeatherForecast>("/api/WeatherForecastGet");
+        data = await Http.GetFromJsonAsync<List<WeatherForecast>>("/api/WeatherForecast");
       }
       catch (Exception ex)
       {

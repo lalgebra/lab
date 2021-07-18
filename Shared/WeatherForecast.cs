@@ -5,8 +5,7 @@ namespace BlazorApp.Shared
 {
     public class WeatherForecast : TableEntity
     {
-        public DateTime Date { get; set; }
-
+        
         public double Humidity { get; set; }
         public double TemperatureC { get; set; }
 
