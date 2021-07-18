@@ -34,7 +34,7 @@ else
     </div>
     <div class="col-md-6 col-sm-12 p-4">
         <p>
-            <label>Value <RadzenSlider Min="0" Max="260" @bind-Value=@value /></label>
+            <label>Value <RadzenSlider Min="0" Max="100" @bind-Value=@lastHumidity /></label>
         </p>
         <p>
             <label>Show the pointer value <RadzenCheckBox @bind-Value=@showValue /></label>
@@ -51,7 +51,7 @@ else
     private List<WeatherForecast> data;
     private double lastHumidity;
     bool showValue = true;
-    double value = 100;
+    @* double value = 100; *@
     IEnumerable<GaugeTickPosition> tickPositions = Enum.GetValues(typeof(GaugeTickPosition)).Cast<GaugeTickPosition>();
     GaugeTickPosition tickPosition = GaugeTickPosition.Outside;
 
