@@ -71,10 +71,11 @@ namespace BlazorApp.Api
                 {
                     WeatherForecast _summary = new WeatherForecast
                     {
-                        PartitionKey = entity.PartitionKey,
-                        RowKey = entity.RowKey,
-                        Timestamp = entity.Timestamp
-                    };
+                        Timestamp = entity.Timestamp,
+                        Humidity = entity.Humidity,
+                        TemperatureC = entity.TemperatureC,
+                        HumidityLevel = entity.HumidityLevel
+                                            };
 
                     _records.Add(_summary);
                 }
