@@ -12,19 +12,15 @@
 }
 else
 {
-
-
-
-
     <div class="row">
-        <div class="col-md-6 col-sm-12 p-4">
+        <div class="col-md-10 col-sm-50 p-7">
             <RadzenArcGauge Style="width: 100%; height: 250px;">
                 <RadzenArcGaugeScale Step="20" Min="0" Max="100" MinorStep="2" Radius="1.5" TickPosition=@tickPosition
                 Y="0.9" Margin="0">
                     <RadzenArcGaugeScaleValue Value=@lastHumidity ShowValue=@showValue>
                         <Template Context="pointer">
                             <h4>
-                                Himidity: @pointer.Value <sup>%</sup>
+                                Humidity: @pointer.Value <sup>%</sup>
                             </h4>
                         </Template>
                     </RadzenArcGaugeScaleValue>
@@ -53,7 +49,7 @@ else
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-sm-12 p-4">
+        <div class="col-md-12 col-sm-18 p-8">
             <RadzenChart>
                 <RadzenLineSeries Smooth="@smooth" Data="@data" CategoryProperty="Date" Title="Temperature" ValueProperty="TemperatureC">
                     <RadzenMarkers MarkerType="MarkerType.Circle" />
@@ -62,7 +58,7 @@ else
                 <RadzenCategoryAxis Padding="20" />
                 <RadzenValueAxis>
                     <RadzenGridLines Visible="true" />
-                    <RadzenAxisTitle Text="Temperature" />
+                    <RadzenAxisTitle Text="Celsius" />
                 </RadzenValueAxis>
             </RadzenChart>
         </div>
