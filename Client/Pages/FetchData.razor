@@ -1,12 +1,10 @@
 @page "/fetchdata"
-@using BlazorApp.Shared 
+@using BlazorApp.Shared
 @using Radzen
 @using Radzen.Blazor
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
+<h1>Dashboard</h1>
 
 @if (data == null)
 {
@@ -14,42 +12,68 @@
 }
 else
 {
-    
-    
 
-<h1>Radzen Blazor Arc Gauge</h1
-<div class="row">
-    <div class="col-md-6 col-sm-12 p-4">
-        <RadzenArcGauge Style="width: 100%; height: 250px;">
-            <RadzenArcGaugeScale Step="20" Min="0" Max="100" MinorStep="2" Radius="1.5" TickPosition=@tickPosition Y="0.9" Margin="0">
-                <RadzenArcGaugeScaleValue Value=@lastHumidity ShowValue=@showValue>
-                    <Template Context="pointer">
-                        <h4>
-                            @pointer.Value <sup>%</sup>
-                        </h4>
-                    </Template>
-                </RadzenArcGaugeScaleValue>
-            </RadzenArcGaugeScale>
-        </RadzenArcGauge>
+
+
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12 p-4">
+            <RadzenArcGauge Style="width: 100%; height: 250px;">
+                <RadzenArcGaugeScale Step="20" Min="0" Max="100" MinorStep="2" Radius="1.5" TickPosition=@tickPosition
+                Y="0.9" Margin="0">
+                    <RadzenArcGaugeScaleValue Value=@lastHumidity ShowValue=@showValue>
+                        <Template Context="pointer">
+                            <h4>
+                                Himidity: @pointer.Value <sup>%</sup>
+                            </h4>
+                        </Template>
+                    </RadzenArcGaugeScaleValue>
+                </RadzenArcGaugeScale>
+            </RadzenArcGauge>
+        </div>
+
+
+        <div class="col-md-6 col-sm-12 p-4">
+            <RadzenRadialGauge Style="width: 100%; height: 300px;">
+                <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step="20" Min="-20" Max="60"
+                TickPosition=@tickPosition>
+                    <RadzenRadialGaugeScalePointer Value=@lastTemperature Length="0.6" ShowValue=@showValue>
+                        <Template Context="pointer">
+                            <h4>
+                                @pointer.Value <sup>°C</sup>
+                            </h4>
+                        </Template>
+                    </RadzenRadialGaugeScalePointer>
+                    <RadzenRadialGaugeScaleRange From="-20" To="10" Fill="blue" />
+                    <RadzenRadialGaugeScaleRange From="10" To="20" Fill="orange" />
+                    <RadzenRadialGaugeScaleRange From="20" To="28" Fill="green" />
+                    <RadzenRadialGaugeScaleRange From="28" To="60" Fill="red" />
+                </RadzenRadialGaugeScale>
+            </RadzenRadialGauge>
+        </div>
     </div>
-    <div class="col-md-6 col-sm-12 p-4">
-        <p>
-            <label>Value <RadzenSlider Min="0" Max="100" @bind-Value=@lastHumidity /></label>
-        </p>
-        <p>
-            <label>Show the pointer value <RadzenCheckBox @bind-Value=@showValue /></label>
-        </p>
-        <p>
-            <label>Tick position <RadzenDropDown @bind-Value=@tickPosition Data=@tickPositions /> </label>
-        </p>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 p-4">
+            <RadzenChart>
+                <RadzenLineSeries Smooth="@smooth" Data="@data" CategoryProperty="Date" Title="Temperature" ValueProperty="TemperatureC">
+                    <RadzenMarkers MarkerType="MarkerType.Circle" />
+                </RadzenLineSeries>
+               
+                <RadzenCategoryAxis Padding="20" FormatString="{HH:mm}" />
+                <RadzenValueAxis>
+                    <RadzenGridLines Visible="true" />
+                    <RadzenAxisTitle Text="Temperature" />
+                </RadzenValueAxis>
+            </RadzenChart>
+        </div>
     </div>
-</div>
 }
 
 @code {
-     bool smooth = false;
+    bool smooth = false;
     private List<WeatherForecast> data;
     private double lastHumidity;
+    private double lastTemperature;
     bool showValue = true;
     @* double value = 100; *@
     IEnumerable<GaugeTickPosition> tickPositions = Enum.GetValues(typeof(GaugeTickPosition)).Cast<GaugeTickPosition>();
@@ -57,14 +81,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-      try
-      {
-        data = await Http.GetFromJsonAsync<List<WeatherForecast>>("/api/record");
-        lastHumidity = data.OrderByDescending(x=>x.Date).LastOrDefault().Humidity;    
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine(ex.ToString());
-      }
+        try
+        {
+            data = await Http.GetFromJsonAsync<List<WeatherForecast>>("/api/record");
+            lastHumidity = data.OrderByDescending(x => x.Date).LastOrDefault().Humidity;
+            lastTemperature = data.OrderByDescending(x => x.Date).LastOrDefault().TemperatureC;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
     }
 }
