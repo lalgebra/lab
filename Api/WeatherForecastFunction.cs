@@ -62,6 +62,8 @@ namespace BlazorApp.Api
     // Create a new customer entity.
      var data = await req.Content.ReadAsAsync<WeatherForecastDTO>();
 
+    data.PartitionKey = "partition1";
+    data.RowKey = Guid.NewGuid().ToString();
     // Create the TableOperation that inserts the customer entity.
     TableOperation insertOperation = TableOperation.InsertOrMerge(data);
           
