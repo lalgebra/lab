@@ -12,6 +12,7 @@ namespace BlazorApp.Shared
         public string HumidityLevel { get; set; }
 
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public DateTime DateTime { get; set; }
         public DateTime Date => this.Timestamp.DateTime;
     }
   

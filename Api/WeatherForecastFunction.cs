@@ -103,6 +103,7 @@ namespace BlazorApp.Api
 
             data.PartitionKey = partitionKey;
             data.RowKey = Guid.NewGuid().ToString();
+            data.DateTime = DateTime.UtcNow;
             // Create the TableOperation that inserts the customer entity.
             TableOperation insertOperation = TableOperation.InsertOrMerge(data);
 
