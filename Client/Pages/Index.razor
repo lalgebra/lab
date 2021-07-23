@@ -48,7 +48,8 @@ else
             </RadzenRadialGauge>
         </div>
     </div>
- <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" PageSize="5" AllowPaging="true" AllowSorting="true" Data="@data" TItem="WeatherForecast" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+    <div class="row">
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" PageSize="5" AllowPaging="true" AllowSorting="true" Data="@data" TItem="WeatherForecast" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
         <Columns>
             <RadzenDataGridColumn TItem="WeatherForecast" Property="RowKey" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
             <RadzenDataGridColumn TItem="WeatherForecast" Property="Humidity" Title="Humidity" />
@@ -59,6 +60,7 @@ else
            
         </Columns>
     </RadzenDataGrid>
+    </div>
   
     @* <div class="row">
         <div class="col-md-12 col-sm-18 p-8">
