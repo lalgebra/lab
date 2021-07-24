@@ -74,7 +74,8 @@ namespace BlazorApp.Api
                         Timestamp = entity.Timestamp,
                         Humidity = entity.Humidity,
                         TemperatureC = entity.TemperatureC,
-                        HumidityLevel = entity.HumidityLevel
+                        HumidityLevel = entity.HumidityLevel,
+                        DateTime = entity.DateTime
                                             };
 
                     _records.Add(_summary);

@@ -36,7 +36,7 @@ else
                     <RadzenRadialGaugeScalePointer Value=@lastTemperature Length="0.6" ShowValue=@showValue>
                         <Template Context="pointer">
                             <h4>
-                                @pointer.Value <sup>°C</sup>
+                                Temperature: @pointer.Value <sup>°C</sup>
                             </h4>
                         </Template>
                     </RadzenRadialGaugeScalePointer>
@@ -49,6 +49,20 @@ else
         </div>
     </div>
     <div class="row">
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" PageSize="5" AllowPaging="true" AllowSorting="true" Data="@data" TItem="WeatherForecast" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+        <Columns>
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="RowKey" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="Humidity" Title="Humidity" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="HumidityLevel" Title="Title" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="TemperatureC" Title="TemperatureC" Width="150px"/>
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="TemperatureF" Title="TemperatureF" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="DateTime" Title="Recorded date" />
+           
+        </Columns>
+    </RadzenDataGrid>
+    </div>
+  
+    @* <div class="row">
         <div class="col-md-12 col-sm-18 p-8">
             <RadzenChart>
                 <RadzenLineSeries Smooth="@smooth" Data="@data" CategoryProperty="Date" Title="Temperature" ValueProperty="TemperatureC">
@@ -62,7 +76,7 @@ else
                 </RadzenValueAxis>
             </RadzenChart>
         </div>
-    </div>
+    </div> *@
 }
 
 @code {
@@ -88,4 +102,5 @@ else
             Console.WriteLine(ex.ToString());
         }
     }
+   
 }
